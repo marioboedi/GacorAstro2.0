@@ -1,0 +1,475 @@
+
+
+@font-face {
+    font-family: 'ZodiacFont';
+    src: url('/fonts/ZodiacFont.ttf') format('truetype');
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
+p{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.navbar{
+    background-color: rgba(0, 0, 0, 0.781); /* Warna hitam dengan transparansi */
+    backdrop-filter: blur(10px); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Pastikan lebar navbar 100% */
+    z-index: 1000; /* Agar navbar berada di atas konten lainnya */
+}
+.navbar-brand span{
+    font-family: "Josefin Sans", sans-serif;
+}
+
+@keyframes lights {
+    0% {
+        color: hsl(0, 40%, 80%);
+        text-shadow:
+          0 0 1em hsla(0, 100%, 50%, 0.2),
+          0 0 0.125em hsla(0, 100%, 60%, 0.3),
+          -1em -0.125em 0.5em hsla(10, 100%, 60%, 0),
+          1em 0.125em 0.5em hsla(340, 100%, 60%, 0);
+      }
+      
+      30% { 
+        color: hsl(0, 80%, 90%);
+        text-shadow:
+          0 0 1em hsla(0, 100%, 50%, 0.5),
+          0 0 0.125em hsla(0, 100%, 60%, 0.5),
+          -0.5em -0.125em 0.25em hsla(10, 100%, 60%, 0.2),
+          0.5em 0.125em 0.25em hsla(340, 100%, 60%, 0.4);
+      }
+      
+      40% { 
+        color: hsl(0, 100%, 95%);
+        text-shadow:
+          0 0 1em hsla(0, 100%, 50%, 0.5),
+          0 0 0.125em hsla(0, 100%, 90%, 0.5),
+          -0.25em -0.125em 0.125em hsla(10, 100%, 60%, 0.2),
+          0.25em 0.125em 0.125em hsla(340, 100%, 60%, 0.4);
+      }
+      
+      70% {
+        color: hsl(0, 80%, 90%);
+        text-shadow:
+          0 0 1em hsla(0, 100%, 50%, 0.5),
+          0 0 0.125em hsla(0, 100%, 60%, 0.5),
+          0.5em -0.125em 0.25em hsla(10, 100%, 60%, 0.2),
+          -0.5em 0.125em 0.25em hsla(340, 100%, 60%, 0.4);
+      }
+      
+      100% {
+        color: hsl(0, 40%, 80%);
+        text-shadow:
+          0 0 1em hsla(0, 100%, 50%, 0.2),
+          0 0 0.125em hsla(0, 100%, 60%, 0.3),
+          1em -0.125em 0.5em hsla(10, 100%, 60%, 0),
+          -1em 0.125em 0.5em hsla(340, 100%, 60%, 0);
+      }
+      
+    
+  }
+
+.navbar .navbar-brand{
+  color: hsl(230, 100%, 95%);
+  font-size: 3.5rem;
+  font-weight: 300;
+  animation: lights 5s 750ms linear infinite;
+}
+
+.navbar .nav-item{
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-item:hover{
+    text-shadow: 2px 2px 10px rgb(253, 5, 5);
+}
+
+.about .container{
+    margin-top: 5rem;
+}
+
+.hero img{
+    width: 100%;
+    padding-top: 2rem;
+}
+
+.hero{
+    padding-top: 30px;
+    padding-bottom: 50px;
+    background-color: black;
+    color: white;
+}
+
+.hero-box .box h1{
+    width: 100%;
+}
+
+.box h1{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.box h4{
+      font-family: "Josefin Sans", sans-serif;
+
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.hero .box span{
+    font-family: HipHop;
+    color: rgb(207, 6, 6);
+    text-shadow: 2px 2px 10px rgb(161, 10, 10);;
+}
+
+@media (max-width: 1440px){
+
+    .hero{
+        padding-top: 9rem;
+    }
+
+    
+}
+
+@media (max-width: 992px){
+
+    .hero{
+        padding-top: 9rem;
+    }
+
+    .box h4{
+          font-family: "Josefin Sans", sans-serif;
+
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+}
+
+@media (max-width: 768px){
+
+    .hero{
+        padding-top: 9rem;
+    }
+    .hero-box{
+        text-align: center;
+    }
+}
+
+/* ABOUT */
+.about {
+    position: relative;
+    width: 100%;
+    background-image: url("/images/gacor.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    padding: 100px 0; 
+    color: #fff; 
+    overflow: hidden; 
+}
+
+.about h1{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.about::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.623); 
+    z-index: 0;
+}
+
+.about-box {
+    position: relative;
+    z-index: 1; /
+}
+
+.about .col{
+    z-index: 1;
+}
+
+.about .container h4{
+    z-index: 1;
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.about .col img{
+    width: 100%;
+    border: black;
+    border-radius: 50%;
+}
+
+.about-box img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto; 
+    display: block;
+    background-color: #dbddf1;
+    padding: 15px;
+}
+
+@media (max-width: 475px) {
+    .about-box img {
+        max-width: 300px;
+    }
+}
+
+
+/* ABOUT */
+
+/* CONTENT */
+.contents{
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+}
+
+.contents h4{
+    font-family: truelies;
+    font-size: 2rem;
+}
+
+.contents h1{
+      font-family: "Josefin Sans", sans-serif;
+
+    
+}
+
+.contents label{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.contents option{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.contents .row img{
+    width: 100%;
+    height: 300px; 
+    object-fit: cover;
+    box-shadow: 0px 4px 10px rgb(255, 253, 253);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.contents .row img:hover{
+    
+    box-shadow: 0px 4px 10px rgb(177, 0, 0);
+}
+
+/* CONTENT */
+
+/* footer */
+.footer{
+    
+    padding-bottom: 20px;
+    background-color: black;
+
+}
+
+.footer .container{
+    padding: 5rem;
+}
+
+.container span{
+    font-family: HipHop;
+}
+
+.col a{
+    text-decoration: none;
+    color: white;
+      font-family: "Josefin Sans", sans-serif;
+
+    font-weight: bold;
+    transition: all 0.3s ease;
+    
+}
+
+.footer .col a:hover{
+    color:hsla(0, 100%, 50%, 0.5);
+}
+
+.footer .col h4{
+    text-decoration: none;
+    color: white;
+      font-family: "Josefin Sans", sans-serif;
+
+    font-weight: bold;
+}
+
+.row{
+    margin-bottom: 2rem;
+}
+
+
+/* footer */
+
+/* GALLERY */
+.gallery{
+    background-color: black;
+    padding: 80px 0;
+}
+
+.gallery h1{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.gallery h4{
+      font-family: "Josefin Sans", sans-serif;
+
+}
+
+.gallery img{
+    max-width: 100%;
+    height: 300px; 
+    object-fit: cover;
+    background-color: #dbddf1;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(226, 0, 0, 0.486);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery a h1{
+    font-family: 'ZodiacFont';
+    font-size: 12rem;  
+    
+}
+
+.gallery img:hover{
+    transform: scale(1.1);
+}
+
+#gallery-modal .modal-img{
+    width: 100%;
+}
+/* GALLERY */
+
+/* ULASAN */
+
+.ulasan{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    min-height: 200vh;
+    background-color: black;
+}
+.ulasan-container {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid white;
+    box-shadow: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+}
+
+.ulasan-container h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.ulasan-container p{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.rating {
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+.stars {
+    font-size: 50px;
+    margin: 10px 0;
+}
+
+.star {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.one {
+    color: rgb(255, 0, 0);
+}
+
+.two {
+    color: rgb(255, 106, 0);
+}
+
+.three {
+    color: rgb(251, 255, 120);
+}
+
+.four {
+    color: rgb(255, 255, 0);
+}
+
+.five {
+    color: rgb(24, 159, 14);
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 2rem;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 2rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.reviews {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.review {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.review p {
+    margin: 0;
+}

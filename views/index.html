@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" ng-app="mainApp">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta:wght@100..900&family=New+Amsterdam&family=Pirata+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lexend+Peta:wght@100..900&family=New+Amsterdam&family=Pirata+One&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <!-- ANGULAR JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+
+
+
+    <!-- CSS -->
+     <link rel="stylesheet" href="/css/index.css">
+    
+    <!-- ANIMASI CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- ANIMASI SCROLL -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+    <title>535230091</title>
+  </head>
+  <body>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-light animate__animated animate__fadeInDown ">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <span class="text-white fs-1 fs-md-3 fs-lg-5">GacorAstro</span>
+                </a>
+                <button class="navbar-toggler bg-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto d-flex gap-4 text-center pt-lg-0 pt-4">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white"  href="#home">HOME</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active text-white"  href="#zodiak">ZODIAK</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#artikel">ARTIKEL</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#contact">CONTACT</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="subscribe.html">SUBSCRIBE</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/logout">LOGOUT</a>
+                    </li>
+                    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- SECTION -->
+         <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-box d-flex align-items-center justify-content-between gap-md-0 gap-5 flex-md-row flex-column">
+                    <div class="box animate__animated animate__fadeInLeft">
+                        <h1 class="fw-bold mb-3" id="welcome-message">
+                            WELCOME
+                            <script>
+                                fetch('/api/user')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        document.getElementById('welcome-message').textContent = `Welcome, ${data.userName}!`;
+                                    })
+                                    .catch(error => console.error('Error fetching user data:', error));
+                            </script>
+                        <br>
+                        to
+                        <span>
+                            LIFESTYLE VIBES
+                        </span> 
+                        </h1>
+                        <h4>MUSIC - CULTURE - FASHION </h4>
+                        <p lh-lg mb-4>GacorAstro adalah Website gaya hidup yang membahas seputar Zodiak atau lebih dikenal
+                            Rasi Bintang. Dalam Website ini akan berisi ramalan dalam berbagai aspek
+                            yaitu, karakter, kesehatan, karier, hubungan sesuai dengan tanda Zodiak Pengguna.</p>
+                        <div>
+                            <a href="subscribe.html" class="btn btn-dark">
+                               Subscribe
+                            </a>
+                            <a href="#about" class="btn btn-outline-light">
+                                About Us
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="box animate__animated animate__fadeInRight animate__delay-2s">
+                        <img src="/images/gacor1.png" alt="Hero Image">
+                    </div>
+                </div>
+            </div>
+         </section>
+        <!-- SECTION -->
+
+        
+        <!-- GALERY -->
+           <!-- Updated Gallery Section -->
+            <section class="gallery min-vh-100" ng-app="zodiacApp" ng-controller="zodiacController">
+                <div class="container-lg">
+                <h1 class="text-white text-center mb-2">LOCAL HIP-HOP FIGURE</h1>
+                <p class="text-white text-center mb-5">CLICK THE IMAGE</p>
+                <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
+                    <div class="col" ng-repeat="zodiac in zodiacs" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="100">
+                    <a href="{{zodiac.link}}">
+                        <h4 class="text-white text-center pb-3">{{zodiac.name}}</h4>
+                        <h1 class="text-center">{{zodiac.symbol}}</h1>
+                        <p class="text-white text-center">{{zodiac.dateRange}}</p>
+                    </a>
+                    </div>
+                </div>
+                </div>
+            </section>
+   
+
+        
+        <!-- GALERY -->
+
+        <!-- CONTENT -->
+        <!-- Tambahkan ng-app dan ng-controller untuk AngularJS -->
+            <section class="contents" id="content" ng-app="articleApp" ng-controller="articleController">
+                <div class="container">
+                    <div class="contents-box">
+                        <h1 class="text-center" data-aos="fade-up" data-aos-duration="1000">ARTICLE</h1>
+                        <p class="text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, earum.
+                        </p>
+
+                        <!-- Dropdown Filter Kategori -->
+                        <div class="text-center pt-3">
+                            <label for="categoryFilter">Filter by Category:</label>
+                            <select id="categoryFilter" ng-model="selectedCategory" ng-options="category for category in categories">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+
+                        <div class="row justify-content-center pt-4 gap-4">
+
+                            <!-- Filter akan menampilkan semua artikel jika selectedCategory kosong -->
+                            <div class="col col-md-5 col-12 shadow p-3 rounded"
+                                 data-aos="fade-up"
+                                 data-aos-duration="1000"
+                                 ng-repeat="article in articles | filter: (selectedCategory ? {category: selectedCategory} : {})">
+                                <img ng-src="{{article.image}}" alt="Project Images">
+                                <h4 class="pt-4">{{article.category}}</h4>
+                                <p>{{article.content}}</p>
+                                <div>
+                                    <a class="btn btn-outline-danger fw-bold" href="subscribe.html">READ</a>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+
+        <!-- CONTENT -->
+
+
+    
+        <!-- ABOUT -->
+          <div class="about" id="about">
+            <div class="container">
+                <div class="about-box text-center">
+                    <h1 class="fw-bold mb-4">ABOUT US</h1>
+                    <p class="lh-lg mb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut incidunt magnam fuga, quisquam maxime laudantium ipsum qui quia ad dolore quod voluptate temporibus aut animi, quibusdam esse facilis cupiditate commodi.</p>
+                    <img src="/images/gacor.jpg" alt="" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="40">
+                </div>
+                
+                <div class="row justify-content-center pt-4 gap-4">
+
+                    <div class="col col-md-5 col-12 shadow p-3 rounded text-left" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                        <h4 class="pt-4">OUR STORY</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A quaerat quo beatae voluptates error quisquam ratione vel fugit modi cumque.</p>
+                        <div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-5 col-12 shadow p-3 rounded text-end" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
+                        <h4 class="pt-4">OUR VISION</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A quaerat quo beatae voluptates error quisquam ratione vel fugit modi cumque.</p>
+                        <div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                <div class="row justify-content-center pt-4 gap-4 text-center">
+                    <h4 class="text-center z-index-1">MEET OUR TEAM</h4>
+                    <div class="col col-md-3 col-12 shadow p-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="">
+                        <h4 class="pt-3">MARIO</h4>
+                        <div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 col-12 shadow p-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="">
+                        <h4 class="pt-3">SAMUEL</h4>
+                        
+                        <div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 col-12 shadow p-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="">
+                        <h4 class="pt-3">BUDIONO</h4>
+                        
+                        <div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+          </div>
+         <!-- ABOUT -->
+
+
+         <!-- ULASAN -->
+
+         <div class="ulasan" ng-app="reviewApp" ng-controller="reviewController">
+            <div class="ulasan-container">
+                <h1>GacorAstro</h1>
+                <div class="rating">
+                    <span>{{rating}}/5</span>
+                </div>
+                <div class="stars">
+                    <span class="star" ng-click="setRating(1)">★</span>
+                    <span class="star" ng-click="setRating(2)">★</span>
+                    <span class="star" ng-click="setRating(3)">★</span>
+                    <span class="star" ng-click="setRating(4)">★</span>
+                    <span class="star" ng-click="setRating(5)">★</span>
+                </div>
+                <p>Share your review:</p>
+                <textarea ng-model="newReview.text" placeholder="Write your review here"></textarea>
+                <button ng-click="submitReview()">Submit</button>
+        
+                <div class="reviews">
+                    <div ng-repeat="review in reviews">
+                        <p><strong>Rating: {{review.rating}}/5</strong></p>
+                        <p>{{review.text}}</p>
+                        <button ng-click="editReview($index)">Edit</button>
+                        <button ng-click="deleteReview($index)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- ULASAN -->
+
+         <!-- FOOTER -->
+          <section class="footer" id="contact">
+            <div class="container">
+                <div class="footer-box" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                    <div class="row justify-content-between">
+                        <div class="col text-white col-md-4 col-12">
+                            <div class="d-flex align-items-center gap-4">
+                                <span class="text-white fs-1 fs-md-3 fs-lg-5">LIFESTYLE VIBES</span>
+                            </div>
+                            <p class="lh-lg opacity-95 m-0 mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet illum omnis doloremque quasi porro commodi sequi magni deserunt distinctio labore!</p>
+                        </div>
+
+                        <div class="col d-flex flex-column gap-3 col-md-2 col-12">
+                            <h4 class="text-white">Menu</h4>
+                            <a href="#home" class="opacity-95">HOME</a>
+                            <a href="#content" class="opacity-95" >CONTENT</a>
+                            <a href="#about" class="opacity-95">ABOUT</a>
+                            <a href="subscribe.html" class="mb-5 opacity-95">SUBSCRIBE</a>
+                        </div>
+
+                        <div class="col d-flex flex-column gap-3 col-md-4 col-12">
+                            <h4 class="text-white">CONTACT US</h4>
+                            
+                            <p class="m-0 d-flex align-items-center gap-2 text-white">
+                                <i class="fa-solid fa-envelope"></i>
+                                mariosamuelboedi@gmail.com
+                            </p>
+                            <p class="m-0 d-flex align-items-center gap-2 text-white">
+                                <i class="fa-solid fa-phone"></i>
+                                +62 821 2539 9691
+                            </p>
+                            <p class="m-0 d-flex align-items-center gap-2 text-white">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Jalan Surya Mutiara III No.27, Kedoya Selatan, Jakarta Barat, Indonesia
+                            </p>
+
+                            <div class="col-12">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.116628925925!2d103.52237847399495!3d-3.7847907434595616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e37571cc2688bb9%3A0x66cdddb388ab2644!2sKumpul%20para%20jomblo!5e0!3m2!1sid!2sid!4v1730117431722!5m2!1sid!2sid" width="100%" height="200" style="border:rgb(53, 52, 52) solid;" 
+                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </section>
+         <!-- FOOTER -->
+
+
+         <!-- KODE JAVASCRIPT -->
+          <!-- Option 1: Bootstrap Bundle with Popper -->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            <script>
+                document.addEventListener("click", function(e){
+                    if(e.target.classList.contains("gallery-item")){
+                        const src = e.target.getAttribute("src");
+                        document.querySelector(".modal-img").src = src;
+                        const myModal = new bootstrap.Modal(document.getElementById('gallery-modal'))
+                        myModal.show();
+                    }
+                })
+            </script>
+
+            <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+            <script>
+            AOS.init();
+            </script>
+
+        
+
+
+    
+  </body>
+</html>
