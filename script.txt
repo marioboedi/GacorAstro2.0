@@ -1,0 +1,203 @@
+
+--- FITUR CRUD Account
+================> account.js (Angular.js)
+// Fetch user data and display username
+fetch('/api/user')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('userName').textContent = data.userName;
+    })
+    .catch(err => console.error('Error fetching user data:', err));
+
+// Logout function
+function logout() {
+    fetch('/logout')
+        .then(() => {
+            window.location.href = '/login';
+        })
+        .catch(err => console.error('Error logging out:', err));
+}
+
+// Handle account editing
+const editForm = document.getElementById('editForm');
+editForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const newName = document.getElementById('editName').value;
+    const newEmail = document.getElementById('editEmail').value;
+    const newPassword = document.getElementById('editPassword').value;
+
+    try {
+        const response = await fetch('/api/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: newName, email: newEmail, password: newPassword }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Account updated successfully!');
+            // Redirect to the homepage
+            window.location.href = '/';
+        } else {
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        console.error('Error updating account:', error);
+    }
+});
+
+// Handle account deletion
+const deleteButton = document.getElementById('deleteAccount');
+deleteButton.addEventListener('click', async () => {
+    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        try {
+            const response = await fetch('/api/user', { method: 'DELETE' });
+            if (response.ok) {
+                alert('Account deleted successfully.');
+                window.location.href = '/register';
+            } else {
+                alert('Failed to delete account.');
+            }
+        } catch (error) {
+            console.error('Error deleting account:', error);
+        }
+    }
+});
+
+================> account.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Warna latar yang lebih lembut */
+        }
+        .container {
+            max-width: 600px; /* Membatasi lebar kontainer */
+            background: #fff;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: 10px; /* Membuat sudut membulat */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan bayangan */
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="mb-4">Your Account</h1>
+        <p>Welcome, <span id="userName" class="fw-bold">User</span>!</p>
+
+        <div class="d-flex justify-content-center gap-2 mb-3">
+            <button onclick="logout()" class="btn btn-primary mb-3">Logout</button>
+            <button id="deleteAccount" class="btn btn-danger mb-3">Delete Account</button>
+
+        </div>
+            <hr>
+
+        <h3 class="mb-3">Edit Account</h3>
+        <form id="editForm" class="text-start">
+            <div class="mb-3">
+                <label for="editName" class="form-label">New Name</label>
+                <input type="text" id="editName" placeholder="Enter new name" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="editEmail" class="form-label">New Email</label>
+                <input type="email" id="editEmail" placeholder="Enter new email" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="editPassword" class="form-label">New Password</label>
+                <input type="password" id="editPassword" placeholder="Enter new password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success w-100">Save Changes</button>
+        </form>
+        <hr>
+
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/account.js"></script>
+</body>
+</html>
+
+
+================> app.js (backend)
+
+// Halaman akun (hanya untuk pengguna yang sudah login)
+app.get('/account', checkAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'account.html'));
+});
+
+// PUT: Mengedit data pengguna
+app.put('/api/user', checkAuth, async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Ambil data pengguna berdasarkan session userId
+        const existingUser = await loginCollection.findById(req.session.userId);
+
+        if (!existingUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Gunakan data lama jika tidak ada data baru
+        const updatedData = {
+            name: name || existingUser.name,
+            email: email || existingUser.email,
+            password: password || existingUser.password,
+        };
+
+        // Update data pengguna
+        const updatedUser = await loginCollection.findByIdAndUpdate(
+            req.session.userId,
+            updatedData,
+            { new: true } // Return updated document
+        );
+
+        req.session.userName = updatedUser.name; // Update nama di session
+
+        res.json({ message: 'User updated successfully', user: updatedUser });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ error: 'Failed to update user' });
+    }
+});
+
+
+// DELETE: Menghapus akun pengguna
+app.delete('/api/user', checkAuth, async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+        // Hapus data pengguna berdasarkan session userId
+        const deletedUser = await loginCollection.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ error: 'Failed to log out after deleting account' });
+            }
+            res.json({ message: 'User deleted successfully' });
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete user' });
+    }
+});
+
+
+
+
