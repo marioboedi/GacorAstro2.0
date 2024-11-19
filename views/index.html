@@ -268,20 +268,21 @@
                     <span>{{rating}}/5</span>
                 </div>
                 <div class="stars">
-                    <span class="star" ng-click="setRating(1)">★</span>
-                    <span class="star" ng-click="setRating(2)">★</span>
-                    <span class="star" ng-click="setRating(3)">★</span>
-                    <span class="star" ng-click="setRating(4)">★</span>
-                    <span class="star" ng-click="setRating(5)">★</span>
+                    <span class="star" ng-class="{'one': rating >= 1}" ng-click="setRating(1)">★</span>
+                    <span class="star" ng-class="{'two': rating >= 2}" ng-click="setRating(2)">★</span>
+                    <span class="star" ng-class="{'three': rating >= 3}" ng-click="setRating(3)">★</span>
+                    <span class="star" ng-class="{'four': rating >= 4}" ng-click="setRating(4)">★</span>
+                    <span class="star" ng-class="{'five': rating >= 5}" ng-click="setRating(5)">★</span>
                 </div>
                 <p>Share your review:</p>
+                <p><strong>{{userName}}</strong> <br> {{userEmail}}</p> <!-- Menampilkan nama dan email pengguna -->
                 <textarea ng-model="newReview.text" placeholder="Write your review here"></textarea>
                 <button ng-click="submitReview()">Submit</button>
         
                 <div class="reviews">
                     <div ng-repeat="review in reviews">
-                        <p><strong>Rating: {{review.rating}}/5</strong></p>
-                        <p>{{review.text}}</p>
+                        <p><strong> <br>{{review.userName}}</strong> <br> {{review.userEmail}} <br> rated: {{review.rating}}/5</p> <!-- Menampilkan nama dan email pengulas -->
+                        <p>"{{review.text}}"</p>
                         <button ng-click="editReview($index)">Edit</button>
                         <button ng-click="deleteReview($index)">Delete</button>
                     </div>
