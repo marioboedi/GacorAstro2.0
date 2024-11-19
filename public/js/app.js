@@ -42,7 +42,7 @@ angular.module('articleApp', [])
         ];
     });
 
-
+// SECTION ULASAN
 angular.module('reviewApp', [])
     .controller('reviewController', function($scope) {
         // Initial reviews data
@@ -93,6 +93,7 @@ angular.module('reviewApp', [])
             $scope.reviews.splice(index, 1);
         };
     });
+// SECTION ULASAN
 
 
     angular.module('zodiacApp', [])

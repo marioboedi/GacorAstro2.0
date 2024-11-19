@@ -1,3 +1,5 @@
+---> app.js
+
 const express = require('express');
 const session = require('express-session');
 const loginCollection = require('./db'); // Import database dan model
@@ -63,11 +65,6 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Halaman akun (hanya untuk pengguna yang sudah login)
-app.get('/account', checkAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'account.html'));
-});
-
 // Register pengguna baru
 app.post('/register', async (req, res) => {
     const data = new loginCollection({
@@ -119,3 +116,6 @@ app.post('/login', async (req, res) => {
 app.listen(3000, () => {
     console.log('Server running at http://localhost:3000');
 });
+
+
+--> 

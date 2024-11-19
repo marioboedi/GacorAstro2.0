@@ -29,52 +29,51 @@ p{
 
 @keyframes lights {
     0% {
-        color: hsl(0, 40%, 80%);
-        text-shadow:
-          0 0 1em hsla(0, 100%, 50%, 0.2),
-          0 0 0.125em hsla(0, 100%, 60%, 0.3),
-          -1em -0.125em 0.5em hsla(10, 100%, 60%, 0),
-          1em 0.125em 0.5em hsla(340, 100%, 60%, 0);
-      }
-      
-      30% { 
-        color: hsl(0, 80%, 90%);
-        text-shadow:
-          0 0 1em hsla(0, 100%, 50%, 0.5),
-          0 0 0.125em hsla(0, 100%, 60%, 0.5),
-          -0.5em -0.125em 0.25em hsla(10, 100%, 60%, 0.2),
-          0.5em 0.125em 0.25em hsla(340, 100%, 60%, 0.4);
-      }
-      
-      40% { 
-        color: hsl(0, 100%, 95%);
-        text-shadow:
-          0 0 1em hsla(0, 100%, 50%, 0.5),
-          0 0 0.125em hsla(0, 100%, 90%, 0.5),
-          -0.25em -0.125em 0.125em hsla(10, 100%, 60%, 0.2),
-          0.25em 0.125em 0.125em hsla(340, 100%, 60%, 0.4);
-      }
-      
-      70% {
-        color: hsl(0, 80%, 90%);
-        text-shadow:
-          0 0 1em hsla(0, 100%, 50%, 0.5),
-          0 0 0.125em hsla(0, 100%, 60%, 0.5),
-          0.5em -0.125em 0.25em hsla(10, 100%, 60%, 0.2),
-          -0.5em 0.125em 0.25em hsla(340, 100%, 60%, 0.4);
-      }
-      
-      100% {
-        color: hsl(0, 40%, 80%);
-        text-shadow:
-          0 0 1em hsla(0, 100%, 50%, 0.2),
-          0 0 0.125em hsla(0, 100%, 60%, 0.3),
-          1em -0.125em 0.5em hsla(10, 100%, 60%, 0),
-          -1em 0.125em 0.5em hsla(340, 100%, 60%, 0);
-      }
-      
+      color: hsl(230, 40%, 80%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.2),
+        0 0 0.125em hsla(320, 100%, 60%, 0.3),
+        -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+        1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
     
-  }
+    30% { 
+      color: hsl(230, 80%, 90%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 60%, 0.5),
+        -0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+        0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    40% { 
+      color: hsl(230, 100%, 95%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 90%, 0.5),
+        -0.25em -0.125em 0.125em hsla(40, 100%, 60%, 0.2),
+        0.25em 0.125em 0.125em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    70% {
+      color: hsl(230, 80%, 90%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 60%, 0.5),
+        0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+        -0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    100% {
+      color: hsl(230, 40%, 80%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.2),
+        0 0 0.125em hsla(320, 100%, 60%, 0.3),
+        1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+        -1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+    
+}
 
 .navbar .navbar-brand{
   color: hsl(230, 100%, 95%);
@@ -102,7 +101,29 @@ p{
 .hero img{
     width: 100%;
     padding-top: 2rem;
+    margin-left: 2rem;
+    border-radius: 50%;
+    animation: rotate-shadow 5s infinite linear;
 }
+
+@keyframes rotate-shadow {
+    0% {
+        box-shadow: 0px 4px 15px rgba(128, 0, 128, 0.5), 0px 0px 25px rgba(148, 0, 211, 0.3);
+    }
+    25% {
+        box-shadow: 20px 20px 25px rgba(128, 0, 128, 0.6), -20px -20px 35px rgba(148, 0, 211, 0.4);
+    }
+    50% {
+        box-shadow: 0px 4px 40px rgba(128, 0, 128, 0.7), 0px 0px 45px rgba(148, 0, 211, 0.5);
+    }
+    75% {
+        box-shadow: -20px -20px 35px rgba(128, 0, 128, 0.6), 20px 20px 25px rgba(148, 0, 211, 0.4);
+    }
+    100% {
+        box-shadow: 0px 4px 15px rgba(128, 0, 128, 0.5), 0px 0px 25px rgba(148, 0, 211, 0.3);
+    }
+}
+
 
 .hero{
     padding-top: 30px;
@@ -396,17 +417,17 @@ p{
 }
 
 .ulasan-container p{
-    font-size: 2rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
 }
 
 .rating {
-    font-size: 3rem;
+    font-size: 1rem;
     margin: 10px 0;
 }
 
 .stars {
-    font-size: 50px;
+    font-size: 30px;
     margin: 10px 0;
 }
 
@@ -446,10 +467,8 @@ textarea {
 button {
     background-color: #007BFF;
     color: white;
-    padding: 10px 20px;
     border: none;
-    font-size: 2rem;
-    margin-top: 1rem;
+    font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -459,15 +478,13 @@ button:hover {
 }
 
 .reviews {
-    margin-top: 20px;
     text-align: left;
 }
 
 .review {
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 5px;
 }
 
 .review p {
