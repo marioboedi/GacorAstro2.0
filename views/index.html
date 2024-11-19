@@ -138,6 +138,38 @@
                 <h1 class="text-white text-center mb-2">LOCAL HIP-HOP FIGURE</h1>
                 <p class="text-white text-center mb-5">CLICK THE IMAGE</p>
 
+                <!-- Form Input untuk Tanggal Lahir -->
+                <div class="text-center mb-4">
+                    <input 
+                        type="number" 
+                        ng-model="birthDay" 
+                        placeholder="Day (1-31)" 
+                        min="1" max="31" 
+                        class="form-control d-inline-block w-auto mb-2">
+                    
+                    <select 
+                        ng-model="birthMonth" 
+                        class="form-control d-inline-block w-auto mb-2">
+                        <option value="" disabled selected>Choose a month</option>
+                        <option ng-repeat="month in months" value="{{$index + 1}}">{{month}}</option>
+                    </select>
+                    
+                    <button 
+                        class="btn btn-primary" 
+                        ng-click="findZodiac()">Find Zodiac</button>
+                </div>
+
+                <!-- Hasil Pencarian -->
+                <div class="text-center mb-5" ng-if="userZodiac">
+                    <h2 class="text-white mb-2">Your Zodiac</h2>
+                    <a href="{{userZodiac.link}}" class="text-decoration-none d-block text-white">
+                        <h4 class="text-center">{{userZodiac.name}}</h4>
+                        <h1 class="text-center">{{userZodiac.symbol}}</h1>
+                        <p class="text-white text-center">{{userZodiac.dateRange}}</p>
+                    </a>
+                </div>
+
+
                 <!-- Galeri Zodiak -->
                 <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
                     <div class="col" ng-repeat="zodiac in zodiacs" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="100">
