@@ -63,6 +63,11 @@ app.get('/logout', (req, res) => {
     });
 });
 
+// Halaman akun (hanya untuk pengguna yang sudah login)
+app.get('/account', checkAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'account.html'));
+});
+
 // Register pengguna baru
 app.post('/register', async (req, res) => {
     const data = new loginCollection({
