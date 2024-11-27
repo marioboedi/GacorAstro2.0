@@ -114,3 +114,66 @@ angular.module('reviewApp', [])
         
       ];
     });
+
+    angular.module('reviewApp', [])
+    .controller('reviewController', function($scope, $http) {
+        // Ambil nama dan email pengguna dari API saat halaman dimuat
+        $http.get('/api/user')
+            .then(function(response) {
+                $scope.userName = response.data.userName;  // Simpan nama pengguna
+                $scope.userEmail = response.data.userEmail; // Simpan email pengguna
+            })
+            .catch(function(error) {
+                console.error('Error fetching user data:', error);
+            });
+
+        // Initial reviews data
+        $scope.reviews = [
+            {rating: 5, text: 'Excellent app! Highly recommend.', userName: 'John Doe', userEmail: 'john@example.com'},
+        ];
+
+        // Model untuk rating dan review
+        $scope.rating = 0;  // Rating awal
+        $scope.newReview = { text: '' };
+
+        // Fungsi untuk mengatur rating
+        $scope.setRating = function(ratingValue) {
+            $scope.rating = ratingValue;
+        };
+
+        // Fungsi untuk menambah review (CREATE)
+        $scope.submitReview = function() {
+            if ($scope.rating === 0 || !$scope.newReview.text) {
+                alert('Silakan pilih rating dan beri ulasan.');
+                return;
+            }
+
+            // Tambahkan review baru ke dalam array
+            $scope.reviews.push({
+                rating: $scope.rating,
+                text: $scope.newReview.text,
+                userName: $scope.userName, // Menambahkan nama pengguna
+                userEmail: $scope.userEmail // Menambahkan email pengguna
+            });
+
+            // Reset form
+            $scope.newReview.text = '';
+            $scope.rating = 0;
+        };
+
+        // Fungsi untuk mengedit review (UPDATE)
+        $scope.editReview = function(index) {
+            const review = $scope.reviews[index];
+            $scope.newReview.text = review.text;
+            $scope.rating = review.rating;
+
+            // Hapus review yang sedang diedit
+            $scope.reviews.splice(index, 1);
+        };
+
+        // Fungsi untuk menghapus review (DELETE)
+        $scope.deleteReview = function(index) {
+            $scope.reviews.splice(index, 1);
+        };
+
+    });
