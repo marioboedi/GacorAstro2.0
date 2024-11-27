@@ -3,6 +3,8 @@ const session = require('express-session');
 const loginCollection = require('./db'); // Import database dan model
 const path = require('path');
 const app = express();
+const zodiacRoutes = require('./routes/zodiacRoutes');
+
 
 // Middleware dan konfigurasi
 app.use(express.static('public'));
@@ -16,6 +18,9 @@ app.use(
         saveUninitialized: false,
     })
 );
+
+app.use('/api', zodiacRoutes);
+
 
 // Middleware untuk melindungi halaman yang membutuhkan login
 function checkAuth(req, res, next) {
@@ -109,6 +114,7 @@ app.post('/login', async (req, res) => {
         req.session.userId = user._id;
         req.session.userName = user.name;
         req.session.userEmail = user.email;  // Pastikan email juga disimpan di session
+        
         
 
         res.redirect('/');
