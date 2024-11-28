@@ -1,9 +1,11 @@
 const express = require('express');
+const app = express();
 const session = require('express-session');
 const loginCollection = require('./db'); // Import database dan model
 const path = require('path');
-const app = express();
 const zodiacRoutes = require('./routes/zodiacRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');  // Import review routes
+
 
 
 // Middleware dan konfigurasi
@@ -20,6 +22,8 @@ app.use(
 );
 
 app.use('/api', zodiacRoutes);
+app.use('/api', reviewRoutes);  
+
 
 
 // Middleware untuk melindungi halaman yang membutuhkan login
@@ -116,7 +120,7 @@ app.post('/login', async (req, res) => {
         req.session.userEmail = user.email;  // Pastikan email juga disimpan di session
         
         
-
+        console.log(req.session);
         res.redirect('/');
     } catch (error) {
         res.status(500).json({ error: 'An error occurred. Please try again.' });

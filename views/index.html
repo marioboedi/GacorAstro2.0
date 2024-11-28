@@ -323,15 +323,19 @@
                 <div class="reviews">
                     <div ng-repeat="review in reviews">
                         <p><strong>{{review.userName}}</strong><br> 
-                           {{review.userEmail}}<br> 
-                           rated: {{review.rating}}/5</p>
+                            {{review.userEmail}}<br> 
+                            rated: {{review.rating}}/5</p>
                         <p>"{{review.text}}"</p>
-                        
-                        <!-- Tombol untuk mengedit atau menghapus ulasan -->
-                        <button ng-click="editReview($index)">Edit</button>
-                        <button ng-click="deleteReview($index)">Delete</button>
+                
+                        <p><strong>Created:</strong> {{review.createdAt | date:'medium'}}</p>
+                        <p><strong>Last Updated:</strong> {{review.updatedAt | date:'medium'}}</p>
+                
+                        <!-- Menampilkan tombol Edit dan Delete hanya jika ulasan milik pengguna yang sedang login -->
+                        <button ng-if="isReviewOwner(review)" ng-click="editReview($index)">Edit</button>
+                        <button ng-if="isReviewOwner(review)" ng-click="deleteReview($index)">Delete</button>
                     </div>
-                </div>
+                </div>                
+                
             </div>
         </div>
         
