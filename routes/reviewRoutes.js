@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Review = require('../models/review');
-const LoginCollection = require('../db')
+const User = require('../models/user'); 
 
 // Middleware untuk melindungi halaman yang membutuhkan login
 function checkAuth(req, res, next) {

@@ -32,7 +32,7 @@ async function seedZodiacs() {
 }
 
 // Koneksi ke MongoDB dan menjalankan seeding
-mongoose.connect('mongodb://127.0.0.1:27017/LoginPage')
+mongoose.connect('mongodb://127.0.0.1:27017/GacorAstroV2')
     .then(() => {
         console.log('Connected to the GacorAstro database for seeding');
         seedZodiacs();  // Menjalankan seeding

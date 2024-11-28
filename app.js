@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
-const loginCollection = require('./db'); // Import database dan model
+const User = require('./models/user'); // Ganti dengan model User
 const path = require('path');
 const zodiacRoutes = require('./routes/zodiacRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');  // Import review routes
@@ -79,14 +79,14 @@ app.get('/account', checkAuth, (req, res) => {
 
 // Register pengguna baru
 app.post('/register', async (req, res) => {
-    const data = new loginCollection({
+    const data = new User({
         name: req.body.name,
         password: req.body.password,
         email: req.body.email,
     });
 
     try {
-        const existingUser = await loginCollection.findOne({ email: req.body.email });
+        const existingUser = await User.findOne({ email: req.body.email });
 
         if (existingUser) {
             return res.status(400).json({ error: 'Email already registered' });
@@ -104,7 +104,7 @@ app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await loginCollection.findOne({ email: email });
+        const user = await User.findOne({ email: email });
 
         if (!user) {
             return res.status(400).json({ error: 'Incorrect email or password' });
@@ -139,7 +139,7 @@ app.put('/api/user', checkAuth, async (req, res) => {
         const { name, email, password } = req.body;
 
         // Ambil data pengguna berdasarkan session userId
-        const existingUser = await loginCollection.findById(req.session.userId);
+        const existingUser = await User.findById(req.session.userId);
 
         if (!existingUser) {
             return res.status(404).json({ error: 'User not found' });
@@ -153,7 +153,7 @@ app.put('/api/user', checkAuth, async (req, res) => {
         };
 
         // Update data pengguna
-        const updatedUser = await loginCollection.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
             req.session.userId,
             updatedData,
             { new: true } // Return updated document
@@ -175,7 +175,7 @@ app.delete('/api/user', checkAuth, async (req, res) => {
         const userId = req.session.userId;
 
         // Hapus data pengguna berdasarkan session userId
-        const deletedUser = await loginCollection.findByIdAndDelete(userId);
+        const deletedUser = await User.findByIdAndDelete(userId);
 
         if (!deletedUser) {
             return res.status(404).json({ error: 'User not found' });
