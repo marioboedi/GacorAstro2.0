@@ -296,31 +296,45 @@
          <div class="ulasan" ng-app="reviewApp" ng-controller="reviewController">
             <div class="ulasan-container">
                 <h1>GacorAstro</h1>
+                
+                <!-- Rating -->
                 <div class="rating">
                     <span>{{rating}}/5</span>
                 </div>
                 <div class="stars">
+                    <!-- Bintang yang bisa diklik untuk memberi rating -->
                     <span class="star" ng-class="{'one': rating >= 1}" ng-click="setRating(1)">★</span>
                     <span class="star" ng-class="{'two': rating >= 2}" ng-click="setRating(2)">★</span>
                     <span class="star" ng-class="{'three': rating >= 3}" ng-click="setRating(3)">★</span>
                     <span class="star" ng-class="{'four': rating >= 4}" ng-click="setRating(4)">★</span>
                     <span class="star" ng-class="{'five': rating >= 5}" ng-click="setRating(5)">★</span>
                 </div>
+        
                 <p>Share your review:</p>
-                <p><strong>{{userName}}</strong> <br> {{userEmail}}</p> <!-- Menampilkan nama dan email pengguna -->
+                
+                <!-- Menampilkan nama dan email pengguna yang sedang login -->
+                <p><strong>{{userName}}</strong> <br> {{userEmail}}</p>
+                
+                <!-- Formulir untuk mengirimkan ulasan -->
                 <textarea ng-model="newReview.text" placeholder="Write your review here"></textarea>
                 <button ng-click="submitReview()">Submit</button>
-        
+                
+                <!-- Menampilkan ulasan yang sudah ada -->
                 <div class="reviews">
                     <div ng-repeat="review in reviews">
-                        <p><strong> <br>{{review.userName}}</strong> <br> {{review.userEmail}} <br> rated: {{review.rating}}/5</p> <!-- Menampilkan nama dan email pengulas -->
+                        <p><strong>{{review.userName}}</strong><br> 
+                           {{review.userEmail}}<br> 
+                           rated: {{review.rating}}/5</p>
                         <p>"{{review.text}}"</p>
+                        
+                        <!-- Tombol untuk mengedit atau menghapus ulasan -->
                         <button ng-click="editReview($index)">Edit</button>
                         <button ng-click="deleteReview($index)">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
+        
          <!-- ULASAN -->
 
          <!-- FOOTER -->
