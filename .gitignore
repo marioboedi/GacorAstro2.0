@@ -1,2 +1,11 @@
 #dependencies
 /node_modules
+
+# Mengabaikan semua file dalam folder uploads
+uploads/*
+
+# Tidak mengabaikan file default-profile.png
+!uploads/default-profile.png
+
+
+backup.txt
