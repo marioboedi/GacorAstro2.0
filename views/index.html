@@ -72,9 +72,9 @@
                         <a class="nav-link text-white" href="#contact">CONTACT</a>
                     </li>
                     
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link text-white" href="subscribe.html">SUBSCRIBE</a>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/account">Account</a>
@@ -108,13 +108,13 @@
                             </span>
                         </h1> 
                         
-                        <h4>MUSIC - CULTURE - FASHION </h4>
+                        <h4>LOREM - LOREM - LOREM </h4>
                         <p lh-lg mb-4>GacorAstro adalah Website gaya hidup yang membahas seputar Zodiak atau lebih dikenal
                             Rasi Bintang. Dalam Website ini akan berisi ramalan dalam berbagai aspek
                             yaitu, karakter, kesehatan, karier, hubungan sesuai dengan tanda Zodiak Pengguna.</p>
                         <div>
                             <a href="subscribe.html" class="btn btn-dark">
-                               Subscribe
+                               Lorem
                             </a>
                             <a href="#about" class="btn btn-outline-light">
                                 About Us
@@ -135,7 +135,7 @@
            <!-- Updated Gallery Section -->
             <section class="gallery min-vh-100" ng-app="zodiacApp" ng-controller="zodiacController">
                 <div class="container-lg">
-                <h1 class="text-white text-center mb-2">LOCAL HIP-HOP FIGURE</h1>
+                <h1 class="text-white text-center mb-2">ZODIAC</h1>
                 <p class="text-white text-center mb-5">CLICK THE IMAGE</p>
 
                 <!-- Form Input untuk Tanggal Lahir -->
@@ -296,31 +296,49 @@
          <div class="ulasan" ng-app="reviewApp" ng-controller="reviewController">
             <div class="ulasan-container">
                 <h1>GacorAstro</h1>
+                
+                <!-- Rating -->
                 <div class="rating">
                     <span>{{rating}}/5</span>
                 </div>
                 <div class="stars">
+                    <!-- Bintang yang bisa diklik untuk memberi rating -->
                     <span class="star" ng-class="{'one': rating >= 1}" ng-click="setRating(1)">★</span>
                     <span class="star" ng-class="{'two': rating >= 2}" ng-click="setRating(2)">★</span>
                     <span class="star" ng-class="{'three': rating >= 3}" ng-click="setRating(3)">★</span>
                     <span class="star" ng-class="{'four': rating >= 4}" ng-click="setRating(4)">★</span>
                     <span class="star" ng-class="{'five': rating >= 5}" ng-click="setRating(5)">★</span>
                 </div>
+        
                 <p>Share your review:</p>
-                <p><strong>{{userName}}</strong> <br> {{userEmail}}</p> <!-- Menampilkan nama dan email pengguna -->
+                
+                <!-- Menampilkan nama dan email pengguna yang sedang login -->
+                <p><strong>{{userName}}</strong> <br> {{userEmail}}</p>
+                
+                <!-- Formulir untuk mengirimkan ulasan -->
                 <textarea ng-model="newReview.text" placeholder="Write your review here"></textarea>
                 <button ng-click="submitReview()">Submit</button>
-        
+                
+                <!-- Menampilkan ulasan yang sudah ada -->
                 <div class="reviews">
                     <div ng-repeat="review in reviews">
-                        <p><strong> <br>{{review.userName}}</strong> <br> {{review.userEmail}} <br> rated: {{review.rating}}/5</p> <!-- Menampilkan nama dan email pengulas -->
+                        <p><strong>{{review.userName}}</strong><br> 
+                            {{review.userEmail}}<br> 
+                            rated: {{review.rating}}/5</p>
                         <p>"{{review.text}}"</p>
-                        <button ng-click="editReview($index)">Edit</button>
-                        <button ng-click="deleteReview($index)">Delete</button>
+                
+                        <p><strong>Created:</strong> {{review.createdAt | date:'medium'}}</p>
+                        <p><strong>Last Updated:</strong> {{review.updatedAt | date:'medium'}}</p>
+                
+                        <!-- Menampilkan tombol Edit dan Delete hanya jika ulasan milik pengguna yang sedang login -->
+                        <button ng-if="isReviewOwner(review)" ng-click="editReview($index)">Edit</button>
+                        <button ng-if="isReviewOwner(review)" ng-click="deleteReview($index)">Delete</button>
                     </div>
-                </div>
+                </div>                
+                
             </div>
         </div>
+        
          <!-- ULASAN -->
 
          <!-- FOOTER -->
@@ -340,7 +358,7 @@
                             <a href="#home" class="opacity-95">HOME</a>
                             <a href="#content" class="opacity-95" >CONTENT</a>
                             <a href="#about" class="opacity-95">ABOUT</a>
-                            <a href="subscribe.html" class="mb-5 opacity-95">SUBSCRIBE</a>
+                            <!-- <a href="subscribe.html" class="mb-5 opacity-95">SUBSCRIBE</a> -->
                         </div>
 
                         <div class="col d-flex flex-column gap-3 col-md-4 col-12">
