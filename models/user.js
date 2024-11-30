@@ -1,23 +1,22 @@
-// const mongoose = require('mongoose');
+const mongoose = require('../db'); // Import koneksi database
 
-// // Schema untuk koleksi user
-// const userSchema = new mongoose.Schema({
-//     name: {
-//         type: String,
-//         required: true
-//     },
-//     password: {
-//         type: String,
-//         required: true
-//     },
-//     email: {
-//         type: String,
-//         required: true,
-//         unique: true // Pastikan email unik
-//     }
-// });
+// Definisi schema untuk koleksi user
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    }
+});
 
-// // Model untuk koleksi user
-// const User = mongoose.model('User', userSchema);
+// Buat model berdasarkan schema
+const User = mongoose.model('User', userSchema);
 
-// module.exports = User;
+module.exports = User; // Ekspor model
