@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
-    <title>535230091</title>
+    <title>GacorAstro2.0</title>
   </head>
   <body>
 
@@ -321,6 +321,9 @@
                 <div class="container mt-4">
                     <div class="reviews">
                         <div ng-repeat="review in reviews" class="review mb-3 p-3 border rounded">
+                            <img ng-src="{{review.profilePic || '/uploads/default-profile.png'}}" alt="Profile Picture" class="rounded-circle mb-3"
+                            style="width: 90px; height: 90px; object-fit: cover"
+                            style="max-width: 200px" />
                             <p><strong>{{review.userName}}</strong><br> 
                                 <small>{{review.userEmail}}</small><br> 
                                 Rated: <strong>{{review.rating}}/5</strong></p>

@@ -43,6 +43,8 @@ router.post("/login", async (req, res) => {
     req.session.userId = user._id;
     req.session.userName = user.name;
     req.session.userEmail = user.email; // Pastikan email juga disimpan di session
+    req.session.profilePic = user.profilePic || '/uploads/default-profile.png'; // Tambahkan profilePic ke session
+
     console.log(req.session);
 
     res.redirect("/");

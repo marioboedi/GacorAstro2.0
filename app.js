@@ -1,25 +1,15 @@
 const express = require("express");
-
 const app = express();
-
 const session = require("express-session");
-
 const path = require("path");
-
 const zodiacRoutes = require("./routes/zodiacRoutes");
-
 const reviewRoutes = require("./routes/reviewRoutes");
-
 const userRoutes = require("./routes/userRoutes"); // Import user routes
 
 // Middleware dan konfigurasi
-
 app.use(express.static("public"));
-
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
@@ -33,9 +23,7 @@ app.use(
 );
 
 app.use("/api", zodiacRoutes);
-
 app.use("/api", reviewRoutes);
-
 app.use("/api", userRoutes); // Gunakan user routes di sini
 
 // Middleware untuk melindungi halaman yang membutuhkan login
@@ -81,7 +69,6 @@ app.get("/register", checkNotAuth, (req, res) => {
 app.get("/api/user", checkAuth, (req, res) => {
   res.json({
     userName: req.session.userName,
-
     userEmail: req.session.userEmail, // Pastikan email pengguna juga terkirim
   });
 });
