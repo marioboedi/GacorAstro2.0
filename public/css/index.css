@@ -1,5 +1,4 @@
 
-
 @font-face {
     font-family: 'ZodiacFont';
     src: url('/fonts/ZodiacFont.ttf') format('truetype');
@@ -391,7 +390,8 @@ p{
 
 /* ULASAN */
 
-.ulasan{
+/* Pastikan ulasan memiliki background hitam */
+.ulasan {
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
@@ -399,16 +399,19 @@ p{
     align-items: center;
     color: white;
     min-height: 200vh;
-    background-color: black;
+    background-color: black; /* Memastikan background hitam */
+    flex-direction: column;
 }
+
 .ulasan-container {
-    background-color: transparent;
+    background-color: transparent; /* Pastikan ini transparan agar background hitam dari .ulasan tetap terlihat */
     padding: 20px;
     border-radius: 15px;
     border: 2px solid white;
     box-shadow: rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 400px;
+    width: 80%;
+    max-width: 1200px;
 }
 
 .ulasan-container h1 {
@@ -416,7 +419,7 @@ p{
     margin: 0;
 }
 
-.ulasan-container p{
+.ulasan-container p {
     font-size: 1.2rem;
     margin-bottom: 1rem;
 }
@@ -461,34 +464,72 @@ textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 2rem;
+    font-size: 1rem;
+    margin-bottom: 10px;
 }
 
-button {
-    background-color: #007BFF;
+.ulasan button {
     color: white;
     border: none;
     font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
+    padding: 10px 20px;
+    width: 100%;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
+/* Styling untuk review */
 .reviews {
-    text-align: left;
+    display: flex;
+    flex-direction: row; /* Atur review secara horizontal */
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .review {
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 5px;
+    padding: 20px;
+    background-color: #131212;
+    width: 300px;
+    margin: 15px;
 }
 
-.review p {
-    margin: 0;
+/* Menyoroti teks review */
+.review-text {
+    background-color: #0c0c0c; /* Highlight review text */
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Styling untuk bagian 'Created' dan 'Updated' */
+.review-dates {
+    font-size: 0.8rem !important; /* Ukuran font lebih kecil */
+    text-align: left; /* Teks rata kiri */
+    margin-top: 10px;
+    display: block; /* Membuat elemen tampil secara vertikal */
+    line-height: 1.5;
+}
+
+.review .mb-3 {
+    margin-bottom: 1rem;
+}
+
+.review .mb-1 {
+    margin-bottom: 0.5rem;
+}
+
+.review .mb-0 {
+    margin-bottom: 0;
+}
+
+.btn-group button {
+    margin-right: 5px;
 }
 
 /* ACCOUNT */

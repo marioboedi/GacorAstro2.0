@@ -24,11 +24,12 @@ router.get('/user', checkAuth, (req, res) => {
 // Mengambil semua ulasan
 router.get('/reviews', async (req, res) => {
     try {
-        const reviews = await Review.find().populate('userId', 'name email');
+        const reviews = await Review.find().populate('userId', 'name email profilePic');
         // Pastikan userId ada di setiap review
         const reviewsWithUserId = reviews.map(review => ({
             ...review.toObject(),
-            userId: review.userId._id // Pastikan userId yang dikembalikan adalah _id
+            userId: review.userId._id, // Pastikan userId yang dikembalikan adalah _id
+            profilePic: review.userId.profilePic || '/uploads/default-profile.png', // Gunakan default jika kosong
         }));
         console.log("Reviews fetched successfully:", reviewsWithUserId); // Debugging
         res.json(reviewsWithUserId);
@@ -42,10 +43,11 @@ router.get('/reviews', async (req, res) => {
 
 
 router.post('/reviews', checkAuth, async (req, res) => {
-    const { rating, text } = req.body;  // Ambil rating dan text dari body request
+    const { rating, text, } = req.body;  // Ambil rating dan text dari body request
     const userId = req.session.userId;
     const userName = req.session.userName;
     const userEmail = req.session.userEmail;  // Ambil userEmail dari session
+    const profilePic = req.session.profilePic || '/uploads/default-profile.png'; // Gunakan profilePic
 
     if (!rating || !text || !userEmail) {  // Pastikan userEmail ada di session
         return res.status(400).json({ error: 'Rating, text, and userEmail are required' });
@@ -56,6 +58,7 @@ router.post('/reviews', checkAuth, async (req, res) => {
             userId,
             userName,
             userEmail,  // Gunakan email dari session
+            profilePic: profilePic || '/uploads/default-profile.png', // Gunakan default jika kosong
             rating,
             text
         });

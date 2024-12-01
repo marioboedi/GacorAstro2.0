@@ -118,12 +118,14 @@ angular.module('articleApp', [])
                 // Mode tambah ulasan baru
                 const userName = $scope.loggedInUser.userName;
                 const userEmail = $scope.loggedInUser.userEmail;
+                const profilePic = $scope.loggedInUser.profilePic; // Foto profil pengguna dari session/localStorage
             
                 const reviewData = {
                     rating: $scope.rating,
                     text: $scope.newReview.text,
                     userName: userName,
-                    userEmail: userEmail
+                    userEmail: userEmail,
+                    profilePic: profilePic,
                 };
 
                 $http.post('/api/reviews', reviewData)
