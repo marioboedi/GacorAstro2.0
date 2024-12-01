@@ -13,7 +13,12 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
-    }
+    },
+    profilePic: {  
+
+        type: String,  
+        default: '/uploads/default-profile.png'  
+    },  
 });
 
 // Buat model berdasarkan schema
