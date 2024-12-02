@@ -5,6 +5,7 @@ const path = require("path");
 const zodiacRoutes = require("./routes/zodiacRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const userRoutes = require("./routes/userRoutes"); // Import user routes
+const postRoutes = require("./routes/postRoutes"); // Import user routes
 
 // Middleware dan konfigurasi
 app.use(express.static("public"));
@@ -24,8 +25,8 @@ app.use(
 
 app.use("/api", zodiacRoutes);
 app.use("/api", reviewRoutes);
-app.use("/api", userRoutes); // Gunakan user routes di sini
-
+app.use("/api", userRoutes);
+app.use("/api", postRoutes);
 // Middleware untuk melindungi halaman yang membutuhkan login
 
 function checkAuth(req, res, next) {
