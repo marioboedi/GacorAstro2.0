@@ -16,7 +16,7 @@ function checkAuth(req, res, next) {
 // Mengambil semua postingan
 router.get('/posts', async (req, res) => {
     try {
-        const posts = await Post.find().populate('userId', 'name email profilePic');
+        const posts = await Post.find().populate('userId', 'name email profilePic createdAt');
         const postsWithUserId = posts.map(post => ({
             ...post.toObject(),
             userId: post.userId._id, // Pastikan userId yang dikembalikan adalah _id

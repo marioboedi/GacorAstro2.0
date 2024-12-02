@@ -277,116 +277,116 @@ angular
     };
   });
  
-angular
+  angular
   .module("postApp", [])
   .controller("postController", function ($scope, $http) {
-    // Initial posts data
     $scope.posts = [];
-    $scope.newPost = { text: "", imageUrl: "" }; // Model untuk teks dan gambar
-    $scope.editingIndex = null; // Menyimpan indeks postingan yang sedang diedit
-    $scope.editingPostId = null; // Menyimpan _id postingan yang sedang diedit
-    $scope.loggedInUser = {}; // Data pengguna yang sedang login
- 
-    // Ambil data pengguna yang sedang login dari localStorage atau API
-    let storedUser = localStorage.getItem("loggedInUser");
-    if (storedUser) {
-      $scope.loggedInUser = JSON.parse(storedUser); // Ambil data pengguna dari localStorage
-    } else {
-      $http
-        .get("/api/user")
+    $scope.newPost = { text: "", imageUrl: "" };
+    $scope.editingIndex = null;
+    $scope.editingPostId = null;
+    $scope.loggedInUser = null;
+
+    // Fungsi untuk memuat data pengguna login
+    function fetchLoggedInUser() {
+      // Cek apakah pengguna sudah login
+      $http.get("/api/user")
         .then(function (response) {
           $scope.loggedInUser = response.data;
-          localStorage.setItem("loggedInUser", JSON.stringify(response.data)); // Simpan di localStorage
+          fetchPosts(); // Memuat semua postingan
         })
         .catch(function (error) {
           console.error("Error fetching user data:", error);
+          alert("Error fetching user data");
         });
     }
- 
-    // Ambil semua postingan dari API
-    $http
-      .get("/api/posts")
-      .then(function (response) {
-        $scope.posts = response.data; // Isi data postingan
-      })
-      .catch(function (error) {
-        console.error("Error fetching posts:", error);
-      });
- 
-    // Fungsi untuk menambah atau memperbarui postingan
-    // Fungsi untuk menambah atau memperbarui postingan
-$scope.submitPost = function () {
-    const postData = {
-      text: $scope.newPost.text,
-      imageUrl: $scope.newPost.imageUrl,
-    };
- 
-    // Jika editingPostId ada, berarti kita sedang memperbarui postingan
-    if ($scope.editingPostId) {
+
+    // Fungsi untuk memuat semua postingan
+    function fetchPosts() {
       $http
-        .put("/api/posts/" + $scope.editingPostId, postData)
+        .get("/api/posts")
         .then(function (response) {
-          $scope.posts[$scope.editingIndex] = response.data; // Update data lokal
-          $scope.cancelEdit(); // Reset form
-          alert("Post updated successfully");
- 
-          // Memperbarui data dari API setelah update
-          return $http.get("/api/posts");
-        })
-        .then(function (response) {
-          $scope.posts = response.data; // Perbarui array postingan dengan data terbaru
+          $scope.posts = response.data;
         })
         .catch(function (error) {
-          console.error("Error updating post:", error);
-          alert("Error updating post");
-        });
-    } else {
-      // Jika tidak ada editingPostId, berarti membuat postingan baru
-      $http
-        .post("/api/posts", postData)
-        .then(function (response) {
-          $scope.posts.push(response.data); // Tambahkan postingan baru ke daftar
-          $scope.newPost.text = ""; // Kosongkan form
-          $scope.newPost.imageUrl = "";
-          alert("Post created successfully");
-        })
-        .catch(function (error) {
-          console.error("Error creating post:", error);
-          alert("Error creating post");
+          console.error("Error fetching posts:", error);
         });
     }
-  };
- 
- 
-    // Fungsi untuk mengedit postingan
-    $scope.editPost = function (index) {
-      const post = $scope.posts[index];
-      $scope.newPost.text = post.text; // Isi teks ke dalam form
-      $scope.newPost.imageUrl = post.imageUrl; // Isi image URL ke dalam form
-      $scope.editingIndex = index; // Simpan indeks postingan yang sedang diedit
-      $scope.editingPostId = post._id; // Simpan _id dari postingan yang sedang diedit
+
+     // Fungsi untuk memeriksa apakah pengguna login adalah pemilik postingan
+     $scope.isPostOwner = function(post) {
+      return $scope.loggedInUser && post.userId === $scope.loggedInUser.userId;
     };
- 
+
+    // Fungsi untuk mengirimkan postingan baru atau update
+    $scope.submitPost = function () {
+      const postData = {
+        text: $scope.newPost.text,
+        imageUrl: $scope.newPost.imageUrl,
+        userId: $scope.loggedInUser.userId // Menambahkan userId saat membuat postingan
+      };
+
+      if ($scope.editingPostId) {
+        $http
+          .put("/api/posts/" + $scope.editingPostId, postData)
+          .then(function (response) {
+            $scope.posts[$scope.editingIndex] = response.data;
+            $scope.cancelEdit();
+            alert("Post updated successfully");
+          })
+          .catch(function (error) {
+            console.error("Error updating post:", error);
+            alert("Error updating post");
+          });
+      } else {
+        $http
+          .post("/api/posts", postData)
+          .then(function (response) {
+            $scope.newPost.text = "";
+            $scope.newPost.imageUrl = "";
+            fetchPosts(); // Refresh data setelah postingan baru
+            alert("Post created successfully");
+          })
+          .catch(function (error) {
+            console.error("Error creating post:", error);
+            alert("Error creating post");
+          });
+      }
+    };
+
+    // Fungsi untuk menghapus postingan
     $scope.deletePost = function (index) {
       const post = $scope.posts[index];
- 
-      $http
-        .delete("/api/posts/" + post._id)
-        .then(function (response) {
-          // Hapus dari array di frontend
-          $scope.posts.splice(index, 1);
-          // Refresh data postingan
-          return $http.get("/api/posts");
-        })
-        .then(function (response) {
-          $scope.posts = response.data; // Perbarui array postingan dengan data terbaru
-        })
-        .catch(function (error) {
-          console.error("Error deleting post:", error);
-          alert("Error deleting post");
-        });
+      // Pastikan hanya pengguna yang dapat menghapus postingannya sendiri
+      if (post.userId === $scope.loggedInUser.userId) {
+        $http
+          .delete("/api/posts/" + post._id)
+          .then(function () {
+            fetchPosts(); // Refresh data setelah menghapus postingan
+            alert("Post deleted successfully");
+          })
+          .catch(function (error) {
+            console.error("Error deleting post:", error);
+            alert("Error deleting post");
+          });
+      } else {
+        alert("You can only delete your own posts.");
+      }
     };
- 
+
+    // Fungsi untuk memulai edit postingan
+    $scope.editPost = function (index) {
+      const post = $scope.posts[index];
+      // Pastikan hanya pengguna yang dapat mengedit postingannya sendiri
+      if (post.userId === $scope.loggedInUser.userId) {
+        $scope.newPost.text = post.text;
+        $scope.newPost.imageUrl = post.imageUrl;
+        $scope.editingIndex = index;
+        $scope.editingPostId = post._id;
+      } else {
+        alert("You can only edit your own posts.");
+      }
+    };
+
     // Fungsi untuk membatalkan edit
     $scope.cancelEdit = function () {
       $scope.editingIndex = null;
@@ -394,19 +394,15 @@ $scope.submitPost = function () {
       $scope.newPost.text = "";
       $scope.newPost.imageUrl = "";
     };
- 
-    // Fungsi untuk memeriksa apakah pengguna yang sedang login adalah pemilik postingan
-    $scope.isPostOwner = function (post) {
-      return (
-        post.userId &&
-        $scope.loggedInUser &&
-        post.userId.toString() === $scope.loggedInUser.userId.toString()
-      );
+
+    // Fungsi untuk menampilkan gambar modal
+    $scope.modalImage = "";
+    $scope.setModalImage = function (imageUrl) {
+      $scope.modalImage = imageUrl;
     };
- 
-    $scope.modalImage = '';
-            // Fungsi untuk mengatur gambar di modal
-            $scope.setModalImage = function(imageUrl) {
-                $scope.modalImage = imageUrl;
-            };
+
+    // Panggil fungsi untuk mendapatkan data pengguna saat halaman dimuat
+    fetchLoggedInUser();
   });
+
+

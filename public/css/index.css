@@ -563,10 +563,13 @@ button:hover {
 .postingan{
     background-color: black;
     color: white;
-    min-height: 100vh;
-    padding-bottom: 4rem;
+    height: auto;
+    padding: 4rem 0 4rem 0; /* Menambahkan padding di atas dan bawah */
 }
  
+.postingan .container{
+    background-color: black;
+}
  
  .postingan .carousel-item img {
         object-fit: contain; /* Menyesuaikan gambar agar tetap utuh tanpa terpotong */
