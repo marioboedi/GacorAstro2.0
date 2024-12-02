@@ -233,9 +233,12 @@ p{
 }
 
 .about .col img{
-    width: 100%;
-    border: black;
-    border-radius: 50%;
+    width: 250px; /* Atur lebar sesuai kebutuhan */
+    height: 250px; /* Atur tinggi sesuai kebutuhan */
+    object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+    border-radius: 50%; /* Untuk membuat gambar bulat */
+    display: block;
+    margin: 0 auto; 
 }
 
 .about-box img {
@@ -556,3 +559,59 @@ button:hover {
 
 
 /* ACCOUNT */
+
+.postingan{
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+}
+ 
+ 
+ .postingan .carousel-item img {
+        object-fit: contain; /* Menyesuaikan gambar agar tetap utuh tanpa terpotong */
+        max-height: 150px; /* Membatasi tinggi gambar */
+        height: auto; /* Menjaga rasio aspek gambar */
+        width: auto; /* Menghindari pemaksaan lebar */
+        border-radius: 8px;
+        margin-right: 10px; /* Jarak antara gambar dan teks */
+    }
+ 
+    .postingan .card {
+        border: 1px solid #ddd; /* Menambahkan border pada card */
+        border-radius: 10px; /* Rounded corner */
+        display: flex;
+        flex-direction: row; /* Menata elemen secara horizontal */
+        align-items: flex-start; /* Menjaga gambar di kiri */
+        justify-content: flex-start; /* Menjaga elemen lain (teks dan tombol) di sebelah kanan */
+    }
+ 
+    .postingan .card-body {
+        padding: 20px;
+        flex: 1; /* Membuat area teks dan tombol mengisi sisa ruang */
+    }
+ 
+    .postingan .card-title {
+        font-size: 1.1rem; /* Ukuran font judul */
+        font-weight: bold;
+    }
+ 
+    .postingan .card-text {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+ 
+    .postingan .btn-warning, .btn-danger {
+        font-size: 0.9rem;
+    }
+ 
+    .postingan .img-thumbnail {
+        max-width: 100%; /* Ukuran gambar thumbnail */
+        height: auto;
+        border-radius: 8px; /* Rounded corners pada gambar */
+    }
+ 
+    .img-container {
+        height: auto; /* Container mengikuti ukuran gambar */
+        overflow: hidden; /* Menghindari gambar keluar dari batas */
+    }
