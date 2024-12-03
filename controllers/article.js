@@ -1,6 +1,3 @@
-// Modul utama
-angular.module("mainApp", ["articleApp", "reviewApp", "zodiacApp", "postApp"]);
- 
 // app.js
 angular
   .module("articleApp", [])
@@ -54,6 +51,3 @@ angular
       },
     ];
   });
- 
-
-

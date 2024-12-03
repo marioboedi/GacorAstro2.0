@@ -9,6 +9,7 @@ const postRoutes = require("./routes/postRoutes"); // Import user routes
 
 // Middleware dan konfigurasi
 app.use(express.static("public"));
+app.use(express.static("controllers"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
