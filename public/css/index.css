@@ -618,3 +618,12 @@ button:hover {
         height: auto; /* Container mengikuti ukuran gambar */
         overflow: hidden; /* Menghindari gambar keluar dari batas */
     }
+
+
+    .profile-pic {
+        width: 45px !important; /* Ukuran foto profil */
+        height: 45px !important;
+        object-fit: cover; /* Agar gambar tetap terpotong dengan proporsional */
+        vertical-align: middle; /* Menjaga posisi gambar sejajar dengan teks */
+    }
+    

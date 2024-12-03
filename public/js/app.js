@@ -327,16 +327,22 @@ angular
 
       if ($scope.editingPostId) {
         $http
-          .put("/api/posts/" + $scope.editingPostId, postData)
-          .then(function (response) {
-            $scope.posts[$scope.editingIndex] = response.data;
+        .put("/api/posts/" + $scope.editingPostId, postData)
+        .then(function (response) {
+            // Update data postingan di $scope.posts
+            $scope.posts[$scope.editingIndex] = {
+                ...response.data, // Data dari server
+                userId: $scope.loggedInUser.userId, // Tambahkan userId
+                profilePic: $scope.posts[$scope.editingIndex].profilePic, // Tetap gunakan profilePic lama
+                userName: $scope.posts[$scope.editingIndex].userName, // Tetap gunakan userName lama
+            };
             $scope.cancelEdit();
             alert("Post updated successfully");
-          })
-          .catch(function (error) {
+        })
+        .catch(function (error) {
             console.error("Error updating post:", error);
             alert("Error updating post");
-          });
+        });
       } else {
         $http
           .post("/api/posts", postData)
