@@ -16,7 +16,7 @@ function checkAuth(req, res, next) {
 // Mengambil semua postingan
 router.get('/posts', async (req, res) => {
     try {
-        const posts = await Post.find().populate('userId', 'name email profilePic');
+        const posts = await Post.find().populate('userId', 'name email profilePic createdAt');
         const postsWithUserId = posts.map(post => ({
             ...post.toObject(),
             userId: post.userId._id, // Pastikan userId yang dikembalikan adalah _id
@@ -58,25 +58,33 @@ router.post('/posts', checkAuth, async (req, res) => {
 });
  
 // Memperbarui postingan
+// Memperbarui postingan
 router.put('/posts/:id', checkAuth, async (req, res) => {
     const { text, imageUrl } = req.body;
- 
+
     try {
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.id,
             { text, imageUrl },
             { new: true }
-        );
- 
+        ).populate('userId', 'name email profilePic createdAt'); // Tambahkan populate
+
         if (!updatedPost) {
             return res.status(404).json({ error: 'Post not found' });
         }
- 
-        res.json(updatedPost);
+
+        const populatedPost = {
+            ...updatedPost.toObject(),
+            userId: updatedPost.userId._id, // Tambahkan userId
+            profilePic: updatedPost.userId.profilePic || '/uploads/default-profile.png', // Tambahkan profilePic
+        };
+
+        res.json(populatedPost); // Kembalikan postingan lengkap dengan informasi pengguna
     } catch (error) {
         res.status(500).json({ error: 'Error updating post' });
     }
 });
+
  
 // Menghapus postingan
 router.delete('/posts/:id', checkAuth, async (req, res) => {

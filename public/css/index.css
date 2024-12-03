@@ -563,10 +563,13 @@ button:hover {
 .postingan{
     background-color: black;
     color: white;
-    min-height: 100vh;
-    padding-bottom: 4rem;
+    height: auto;
+    padding: 4rem 0 4rem 0; /* Menambahkan padding di atas dan bawah */
 }
  
+.postingan .container{
+    background-color: black;
+}
  
  .postingan .carousel-item img {
         object-fit: contain; /* Menyesuaikan gambar agar tetap utuh tanpa terpotong */
@@ -615,3 +618,12 @@ button:hover {
         height: auto; /* Container mengikuti ukuran gambar */
         overflow: hidden; /* Menghindari gambar keluar dari batas */
     }
+
+
+    .profile-pic {
+        width: 45px !important; /* Ukuran foto profil */
+        height: 45px !important;
+        object-fit: cover; /* Agar gambar tetap terpotong dengan proporsional */
+        vertical-align: middle; /* Menjaga posisi gambar sejajar dengan teks */
+    }
+    
