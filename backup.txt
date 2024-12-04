@@ -1,28 +1,44 @@
-Pencocokan Zodiak (Zodiac Matchmaking)
-Create: Pengguna dapat memasukkan informasi pribadi mereka dan memilih tanda zodiak yang ingin mereka cari kecocokannya (untuk teman, pasangan, atau rekan kerja).
-Read: Menampilkan hasil pencocokan berdasarkan kecocokan astrologi antara dua zodiak.
-Update: Pengguna dapat mengubah kriteria pencocokan mereka (misalnya, memilih tanda zodiak lain atau memperbarui preferensi).
-Delete: Pengguna dapat menghapus hasil pencocokan atau memutuskan hubungan dengan hasil yang tidak sesuai.
-
-Jurnal Astrologi Pribadi (Personal Astrology Journal)
-Create: Pengunjung dapat membuat jurnal pribadi yang berisi refleksi atau catatan harian tentang perasaan atau kejadian berdasarkan posisi planet atau bintang.
-Read: Menampilkan jurnal yang sudah dibuat oleh pengunjung dengan opsi untuk melihat entri berdasarkan tanggal.
-Update: Memungkinkan pengunjung untuk mengedit atau menambah entri jurnal mereka.
-Delete: Menghapus entri jurnal yang sudah tidak ingin disimpan atau dibagikan.
 
 
-1. Pendaftaran dan Pengisian Informasi Pribadi
-Create:
-Pengguna mendaftar dengan memasukkan informasi dasar seperti nama, alamat email, tanggal lahir, jenis kelamin, dan preferensi lainnya yang bisa memengaruhi ramalan mereka (misalnya, status hubungan, pekerjaan, dll.).
-Pengguna memilih zodiak mereka berdasarkan tanggal lahir yang dimasukkan. Zodiak ini akan digunakan sebagai dasar untuk ramalan pribadi.
-Read:
-Setelah pengguna mengisi informasi pribadi, mereka dapat melihat ringkasan profil mereka (nama, tanggal lahir, zodiak yang dipilih, dan informasi tambahan lainnya).
-Update:
-Pengguna dapat mengedit atau memperbarui informasi pribadi mereka (misalnya, mengubah tanggal lahir, jenis kelamin, atau preferensi lain yang berhubungan dengan ramalan).
-Jika pengguna ingin memperbarui zodiak mereka (misalnya jika mereka mengubah informasi terkait tanggal lahir), sistem akan otomatis memperbarui ramalan berdasarkan zodiak yang baru.
-Delete:
-Pengguna dapat menghapus informasi pribadi mereka jika mereka ingin berhenti menggunakan layanan ramalan.
-Menghapus akun akan menghapus semua data terkait dan mempengaruhi ramalan yang sebelumnya telah diberikan.
 
-
-https://chatgpt.com/share/674effbb-db3c-8005-bd0d-56575ec84c51
+GACORASTRO/
+├── controllers/
+│   ├── account.js
+│   ├── app.js
+│   ├── articleController.js
+│   ├── login.js
+│   ├── postinganController.js
+│   ├── reviewController.js
+│   └── zodiacController.js
+├── models/
+│   ├── article.js
+│   ├── Post.js
+│   ├── review.js
+│   ├── user.js
+│   └── zodiac.js
+├── routes/
+│   ├── articleRoutes.js
+│   ├── postRoutes.js
+│   ├── reviewRoutes.js
+│   ├── userRoutes.js
+│   └── zodiacRoutes.js
+├── public/
+│   ├── css/
+│   ├── fonts/
+│   └── images/
+├── uploads/
+│   └── (image files or other upload data)
+├── views/
+│   ├── admin/                <-- Folder ini kosong
+│   ├── account.html
+│   ├── index.html
+│   ├── login.html
+│   └── register.html
+├── .gitignore
+├── app.js
+├── backup.txt
+├── db.js
+├── package-lock.json
+├── package.json
+├── script.txt
+└── seed.js

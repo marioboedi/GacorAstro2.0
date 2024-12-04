@@ -19,9 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: "your_secret_key", // Ganti dengan string rahasia
-
     resave: false,
-
     saveUninitialized: false,
   })
 );
@@ -52,6 +50,16 @@ function checkNotAuth(req, res, next) {
   next();
 }
 
+function checkAdminAuth(req, res, next) {
+  if (!req.session || !req.session.user || req.session.user.role !== 'admin') {
+    return res.status(403).send({ error: "Akses ditolak. Anda bukan admin." });
+  }
+  next();
+}
+
+app.use("/api/articles", checkAdminAuth); // Melindungi akses CRUD artikel
+
+
 // Halaman utama (hanya untuk pengguna yang sudah login)
 
 app.get("/", checkAuth, (req, res) => {
@@ -69,6 +77,15 @@ app.get("/login", checkNotAuth, (req, res) => {
 app.get("/register", checkNotAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "views", "register.html"));
 });
+
+app.get("/admin/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "loginAdmin.html"));
+});
+
+app.get("/admin/home", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "homeAdmin.html"));
+});
+
 
 // Endpoint API untuk mendapatkan data pengguna
 
@@ -92,6 +109,27 @@ app.get("/logout", (req, res) => {
     res.redirect("/login");
   });
 });
+
+
+// Route untuk logout yang lebih sederhana
+app.post("/api/logout", (req, res) => {
+  // Pastikan ada session untuk pengguna yang login
+  if (req.session && req.session.user) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).send({ error: "Gagal logout" });
+      }
+      res.status(200).send({ message: "Logout berhasil" });
+    });
+  } else {
+    res.status(403).send({ error: "Anda belum login" });
+  }
+});
+
+
+
+
+
 
 // Halaman akun (hanya untuk pengguna yang sudah login)
 

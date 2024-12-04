@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="articleApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Manage Articles</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+
+  <body ng-controller="articleController">
+    <div class="container mt-5">
+      <h1 class="text-center">Manage Articles</h1>
+
+      <button class="btn btn-danger" ng-click="logout()">Logout</button>
+
+      <!-- Form to Add Article (Always visible) -->
+      <div class="mt-4" ng-if="!isEditing">
+        <h3>Add New Article</h3>
+        <form ng-submit="addArticle()" name="articleForm" novalidate>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea
+              class="form-control"
+              ng-model="newArticle.content"
+              name="content"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Image URL</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="newArticle.image"
+              name="image"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="newArticle.category"
+              name="category"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            ng-disabled="articleForm.$invalid"
+          >
+            Add Article
+          </button>
+        </form>
+      </div>
+
+      <!-- Edit Article Form (Only visible when isEditing is true) -->
+      <div ng-if="isEditing">
+        <h3>Edit Article</h3>
+        <form ng-submit="updateArticle()" name="editForm" novalidate>
+          <div class="mb-3">
+            <label for="editContent" class="form-label">Content</label>
+            <textarea
+              class="form-control"
+              ng-model="selectedArticle.content"
+              name="content"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="editImage" class="form-label">Image URL</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="selectedArticle.image"
+              name="image"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editCategory" class="form-label">Category</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="selectedArticle.category"
+              name="category"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            ng-disabled="editForm.$invalid"
+          >
+            Update Article
+          </button>
+        </form>
+      </div>
+
+      <!-- List of Articles -->
+      <div class="row justify-content-center pt-4 gap-4">
+        <div
+          class="col col-md-5 col-12 shadow p-3 rounded"
+          ng-repeat="article in articles"
+        >
+          <h4>{{article.category}}</h4>
+          <p>{{article.content}}</p>
+          <!-- Display Image -->
+          <div ng-if="article.image">
+            <img
+              ng-src="{{article.image}}"
+              alt="{{article.category}} Image"
+              class="img-fluid mb-2"
+            />
+          </div>
+          <button class="btn btn-warning" ng-click="editArticle(article)">
+            Edit
+          </button>
+          <button class="btn btn-danger" ng-click="deleteArticle(article._id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      angular
+        .module("articleApp", [])
+        .controller("articleController", function ($scope, $http) {
+          // Fetch articles on load
+          $http({
+            method: "GET",
+            url: "http://localhost:3000/api/articles",
+            headers: {
+              email: "admin@gmail.com",
+              password: "admin123",
+            },
+          })
+            .then((response) => {
+              $scope.articles = response.data;
+            })
+            .catch((error) => {
+              console.error("Error fetching articles:", error);
+            });
+
+          // Function to add article
+          $scope.addArticle = function () {
+            const newArticle = {
+              content: $scope.newArticle.content,
+              image: $scope.newArticle.image,
+              category: $scope.newArticle.category,
+            };
+
+            $http({
+              method: "POST",
+              url: "http://localhost:3000/api/articles",
+              data: newArticle,
+              headers: {
+                "Content-Type": "application/json",
+                email: "admin@gmail.com",
+                password: "admin123",
+              },
+            })
+              .then((response) => {
+                $scope.articles.push(response.data); // Add new article to list
+                $scope.newArticle = {}; // Reset form fields
+              })
+              .catch((error) => {
+                console.error("Error adding article:", error);
+              });
+          };
+
+          // Function to delete article
+          $scope.deleteArticle = function (id) {
+            $http({
+              method: "DELETE",
+              url: "/api/articles/" + id,
+              headers: {
+                email: "admin@gmail.com",
+                password: "admin123",
+              },
+            })
+              .then(() => {
+                $scope.articles = $scope.articles.filter(
+                  (article) => article._id !== id
+                );
+              })
+              .catch((error) => {
+                console.error("Error deleting article:", error);
+              });
+          };
+
+          // Function to handle article edit
+          $scope.editArticle = function (article) {
+            $scope.isEditing = true; // Show the edit form
+            $scope.selectedArticle = angular.copy(article); // Copy article data to selectedArticle
+          };
+
+          // Function to update article
+          $scope.updateArticle = function () {
+            const updatedArticle = $scope.selectedArticle;
+
+            $http({
+              method: "PUT",
+              url: "http://localhost:3000/api/articles/" + updatedArticle._id,
+              data: updatedArticle,
+              headers: {
+                "Content-Type": "application/json",
+                email: "admin@gmail.com",
+                password: "admin123",
+              },
+            })
+              .then((response) => {
+                // Update the article list with the edited article
+                const index = $scope.articles.findIndex(
+                  (article) => article._id === updatedArticle._id
+                );
+                if (index !== -1) {
+                  $scope.articles[index] = response.data;
+                }
+                $scope.isEditing = false; // Hide the edit form
+                $scope.selectedArticle = {}; // Reset the selected article
+              })
+              .catch((error) => {
+                console.error("Error updating article:", error);
+              });
+          };
+
+          $scope.logout = function () {
+            // Cukup melakukan pengalihan halaman ke loginAdmin.html setelah logout
+            window.location.href = "/admin/login";
+          };
+        });
+    </script>
+  </body>
+</html>
