@@ -133,6 +133,14 @@
         .module("articleApp", [])
         .controller("articleController", function ($scope, $http) {
           // Fetch articles on load
+          // Inisialisasi newArticle
+          $scope.newArticle = {
+            content: "",
+            image: "",
+            category: "",
+          };
+
+          // Fetch articles on load
           $http({
             method: "GET",
             url: "http://localhost:3000/api/articles",
