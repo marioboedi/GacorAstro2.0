@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Zodiac = require('./models/zodiac'); // Pastikan ini sesuai dengan lokasi model Zodiac
+const Article = require('./models/article'); 
 
 // Data Zodiak
 const zodiacs = [
@@ -17,26 +18,41 @@ const zodiacs = [
     { name: 'Sagittarius', symbol: 'Y', dateRange: '22 November - 21 December', startDate: { day: 22, month: 11 }, endDate: { day: 21, month: 12 }, link: 'zodiak/sagittarius.html' }
 ];
 
-// Fungsi untuk mengisi data Zodiak
-async function seedZodiacs() {
+const articles = [
+    { image: "/images/artikel-zodiak-1.jpeg", category: "LIFESTYLE", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+    { image: "/images/artikel-zodiak-2.jpeg", category: "HEALTH", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+    { image: "/images/artikel-zodiak-3.jpeg", category: "RELATIONSHIP", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+    { image: "/images/artikel-zodiak-4.jpg", category: "FASHION", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+    { image: "/images/artikel-zodiak-5.jpeg", category: "RELATIONSHIP", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+    { image: "/images/artikel-zodiak-6.jpeg", category: "LIFESTYLE", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit." },
+]
+
+
+// Fungsi untuk seeding data
+async function seedDatabase() {
     try {
-        // Menghapus semua data lama dalam koleksi Zodiacs
-        await Zodiac.deleteMany();
-
-        // Menyisipkan data zodiak baru
-        await Zodiac.insertMany(zodiacs);
-        console.log('Zodiac data has been successfully seeded!');
+      // Hapus data lama
+      await Zodiac.deleteMany();
+      await Article.deleteMany();
+  
+      // Masukkan data baru
+      await Zodiac.insertMany(zodiacs);
+      await Article.insertMany(articles);
+  
+      console.log("Database has been successfully seeded!");
     } catch (error) {
-        console.log('Error seeding zodiac data:', error);
+      console.error("Error seeding the database:", error);
+    } finally {
+      mongoose.disconnect();
     }
-}
-
-// Koneksi ke MongoDB dan menjalankan seeding
-mongoose.connect('mongodb://127.0.0.1:27017/GacorAstroV2')
+  }
+  
+  // Koneksi ke MongoDB dan jalankan seeding
+  mongoose.connect("mongodb://127.0.0.1:27017/GacorAstroV2")
     .then(() => {
-        console.log('Connected to the GacorAstro database for seeding');
-        seedZodiacs();  // Menjalankan seeding
+      console.log("Connected to the GacorAstro database");
+      seedDatabase();
     })
     .catch((error) => {
-        console.log('Failed to connect to GacorAstro for seeding:', error);
+      console.error("Failed to connect to GacorAstro database:", error);
     });

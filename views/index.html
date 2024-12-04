@@ -194,42 +194,31 @@
 
         <!-- CONTENT -->
         <!-- Tambahkan ng-app dan ng-controller untuk AngularJS -->
-            <section class="contents" id="content" ng-app="articleApp" ng-controller="articleController">
-                <div class="container">
-                    <div class="contents-box">
-                        <h1 class="text-center" data-aos="fade-up" data-aos-duration="1000">ARTICLE</h1>
-                        <p class="text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, earum.
-                        </p>
-
-                        <!-- Dropdown Filter Kategori -->
-                        <div class="text-center pt-3">
-                            <label for="categoryFilter">Filter by Category:</label>
-                            <select id="categoryFilter" ng-model="selectedCategory" ng-options="category for category in categories">
-                                <option value="">All</option>
-                            </select>
-                        </div>
-
-                        <div class="row justify-content-center pt-4 gap-4">
-
-                            <!-- Filter akan menampilkan semua artikel jika selectedCategory kosong -->
-                            <div class="col col-md-5 col-12 shadow p-3 rounded"
-                                 data-aos="fade-up"
-                                 data-aos-duration="1000"
-                                 ng-repeat="article in articles | filter: (selectedCategory ? {category: selectedCategory} : {})">
-                                <img ng-src="{{article.image}}" alt="Project Images">
-                                <h4 class="pt-4">{{article.category}}</h4>
-                                <p>{{article.content}}</p>
-                                <div>
-                                    <a class="btn btn-outline-danger fw-bold" href="subscribe.html">READ</a>
-                                </div>
-                            </div>
-                        
-                        </div>
-                        
-                    </div>
+        <section class="contents" id="content" ng-app="articleApp" ng-controller="articleController">
+            <div class="container">
+              <div class="contents-box">
+                <h1 class="text-center">ARTICLE</h1>
+                <div class="text-center pt-3">
+                  <label for="categoryFilter">Filter by Category:</label>
+                  <select id="categoryFilter" ng-model="selectedCategory" ng-options="category for category in categories">
+                    <option value="">All</option>
+                  </select>
                 </div>
-            </section>
+                <div class="row justify-content-center pt-4 gap-4">
+                  <div class="col col-md-5 col-12 shadow p-3 rounded" 
+                       ng-repeat="article in articles | filter: (selectedCategory ? { category: selectedCategory } : {})">
+                    <img ng-src="{{article.image}}" alt="Article Image">
+                    <h4 class="pt-4">{{article.category}}</h4>
+                    <p>{{article.content}}</p>
+                    <div>
+                      <a class="btn btn-outline-danger fw-bold" href="subscribe.html">READ</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+          
 
 
         <!-- CONTENT -->
