@@ -68,7 +68,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#artikel">ARTIKEL</a>
+                        <a class="nav-link text-white" href="#content">ARTIKEL</a>
                     </li>
 
 
@@ -76,9 +76,6 @@
                         <a class="nav-link text-white" href="#contact">CONTACT</a>
                     </li>
                     
-                    <!-- <li class="nav-item">
-                        <a class="nav-link text-white" href="subscribe.html">SUBSCRIBE</a>
-                    </li> -->
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/account">Account</a>
@@ -112,14 +109,11 @@
                             </span>
                         </h1> 
                         
-                        <h4>LOREM - LOREM - LOREM </h4>
+                        <h4>RAMALAN - INSPIRASI - HARMONI </h4>
                         <p lh-lg mb-4>GacorAstro adalah Website gaya hidup yang membahas seputar Zodiak atau lebih dikenal
                             Rasi Bintang. Dalam Website ini akan berisi ramalan dalam berbagai aspek
                             yaitu, karakter, kesehatan, karier, hubungan sesuai dengan tanda Zodiak Pengguna.</p>
                         <div>
-                            <a href="subscribe.html" class="btn btn-dark">
-                               Lorem
-                            </a>
                             <a href="#about" class="btn btn-outline-light">
                                 About Us
                             </a>
@@ -137,11 +131,11 @@
         
         <!-- GALERY -->
            <!-- Updated Gallery Section -->
-            <section class="gallery min-vh-100" ng-app="zodiacApp" ng-controller="zodiacController">
-                <div class="container-lg">
+           <section class="gallery min-vh-100" ng-app="zodiacApp" ng-controller="zodiacController" id="zodiak">
+            <div class="container-lg">
                 <h1 class="text-white text-center mb-2">ZODIAC</h1>
                 <p class="text-white text-center mb-5">CLICK THE IMAGE</p>
-
+        
                 <!-- Form Input untuk Tanggal Lahir -->
                 <div class="text-center mb-4">
                     <input 
@@ -163,7 +157,7 @@
                         ng-click="findZodiac()">Find Zodiac
                     </button>
                 </div>
-
+        
                 <!-- Hasil Pencarian -->
                 <div class="text-center mb-5" ng-if="userZodiac">
                     <h2 class="text-white mb-2">Your Zodiac</h2>
@@ -173,20 +167,34 @@
                         <p class="text-white text-center">{{userZodiac.dateRange}}</p>
                     </a>
                 </div>
-
-
+        
+                <!-- Form Search -->
+                <div class="text-center mb-4">
+                    <input 
+                        type="text" 
+                        ng-model="searchQuery" 
+                        placeholder="Search Zodiac by Name" 
+                        class="form-control d-inline-block w-auto mb-2">
+                </div>
+        
                 <!-- Galeri Zodiak -->
                 <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
-                    <div class="col" ng-repeat="zodiac in zodiacs" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="100">
-                    <a href="{{zodiac.link}}">
-                        <h4 class="text-white text-center pb-3">{{zodiac.name}}</h4>
-                        <h1 class="text-center">{{zodiac.symbol}}</h1>
-                        <p class="text-white text-center">{{zodiac.dateRange}}</p>
-                    </a>
+                    <div 
+                        class="col" 
+                        ng-repeat="zodiac in zodiacs | filter: { name: searchQuery }" 
+                        data-aos="flip-left" 
+                        data-aos-duration="1000" 
+                        data-aos-delay="100">
+                        <a href="{{zodiac.link}}">
+                            <h4 class="text-white text-center pb-3">{{zodiac.name}}</h4>
+                            <h1 class="text-center">{{zodiac.symbol}}</h1>
+                            <p class="text-white text-center">{{zodiac.dateRange}}</p>
+                        </a>
                     </div>
                 </div>
-                </div>
-            </section>
+            </div>
+        </section>
+        
    
 
         
@@ -199,10 +207,10 @@
               <div class="contents-box">
                 <h1 class="text-center">ARTICLE</h1>
                 <div class="text-center pt-3">
-                  <label for="categoryFilter">Filter by Category:</label>
+                  <!-- <label for="categoryFilter">Filter by Category:</label>
                   <select id="categoryFilter" ng-model="selectedCategory" ng-options="category for category in categories">
                     <option value="">All</option>
-                  </select>
+                  </select> -->
                 </div>
                 <div class="row justify-content-center pt-4 gap-4">
                   <div class="col col-md-5 col-12 shadow p-3 rounded" 
@@ -211,7 +219,7 @@
                     <h4 class="pt-4">{{article.category}}</h4>
                     <p>{{article.content}}</p>
                     <div>
-                      <a class="btn btn-outline-danger fw-bold" href="subscribe.html">READ</a>
+                      <a class="btn btn-outline-danger fw-bold" href="https://maintenance.bsconsulting.co.id/index.jpg">READ</a>
                     </div>
                   </div>
                 </div>

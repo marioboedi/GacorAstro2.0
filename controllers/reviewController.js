@@ -3,6 +3,9 @@ angular
   .controller("reviewController", function ($scope, $http) {
     // Initial reviews data
     $scope.reviews = [];
+
+    $scope.searchText = ""; // Menyimpan teks pencarian
+
  
     // Model untuk rating dan review
     $scope.rating = 0; // Rating awal
@@ -14,6 +17,8 @@ angular
       .then(function (response) {
         $scope.loggedInUser = response.data; // Simpan data pengguna yang sedang login
         localStorage.setItem("loggedInUser", JSON.stringify(response.data)); // Simpan di localStorage
+        $scope.reviews = response.data; // Isi data ulasan
+
       })
       .catch(function (error) {
         console.error("Error fetching user data:", error);
