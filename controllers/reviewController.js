@@ -10,6 +10,35 @@ angular
     // Model untuk rating dan review
     $scope.rating = 0; // Rating awal
     $scope.newReview = { text: "" };
+
+    $scope.sortOrder = "desc"; // Default sort order
+
+// Fungsi untuk mengurutkan ulasan
+$scope.sortReviews = function () {
+  $scope.reviews.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+
+    if ($scope.sortOrder === "asc") {
+      return dateA - dateB; // Urutan ascending (tanggal lebih awal dulu)
+    } else {
+      return dateB - dateA; // Urutan descending (tanggal lebih baru dulu)
+    }
+  });
+};
+
+// Panggil fungsi pengurutan setelah data review diambil
+$http
+  .get("/api/reviews")
+  .then(function (response) {
+    console.log("Fetched reviews:", response.data); // Debugging
+    $scope.reviews = response.data;
+    $scope.sortReviews(); // Terapkan pengurutan setelah data diambil
+  })
+  .catch(function (error) {
+    console.error("Error fetching reviews:", error);
+  });
+
  
     // Ambil data pengguna yang sedang login
     $http

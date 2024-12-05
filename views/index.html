@@ -384,7 +384,7 @@
          <div class="ulasan" ng-app="reviewApp" ng-controller="reviewController">
             <div class="ulasan-container">
                 <h1>GacorAstro</h1>
-                
+        
                 <!-- Rating -->
                 <div class="rating">
                     <span>{{rating}}/5</span>
@@ -399,29 +399,39 @@
                 </div>
         
                 <p>Share your review:</p>
-                
+        
                 <!-- Menampilkan nama dan email pengguna yang sedang login -->
                 <p><strong>{{userName}}</strong><br> {{userEmail}}</p>
-                
+        
                 <!-- Formulir untuk mengirimkan ulasan -->
                 <textarea ng-model="newReview.text" placeholder="Write your review here"></textarea>
                 <button ng-click="submitReview()" class="btn btn-primary">Submit</button>
-                
+        
                 <div class="container mt-4">
+                    <!-- Sort options -->
+                    <div class="sort-options d-flex align-items-center justify-content-between border rounded p-3 mb-3">
+                        <label for="sortOrder" class="me-2 fw-bold mb-0">Sort by:</label>
+                        <select id="sortOrder" class="form-select" style="width: auto;" ng-model="sortOrder" ng-change="sortReviews()">
+                            <option value="asc">Ascending (Oldest First)</option>
+                            <option value="desc">Descending (Newest First)</option>
+                        </select>
+                    </div>
+        
+                    <!-- Reviews -->
                     <div class="reviews">
                         <div ng-repeat="review in reviews" class="review mb-3 p-3 border rounded">
-                            <img ng-src="{{review.profilePic || '/uploads/default-profile.png'}}" alt="Profile Picture" class="rounded-circle mb-3"
-                            style="width: 90px; height: 90px; object-fit: cover"
-                            style="max-width: 200px" />
-                            <p><strong>{{review.userName}}</strong><br> 
-                                <small>{{review.userEmail}}</small><br> 
-                                Rated: <strong>{{review.rating}}/5</strong></p>
+                            <img ng-src="{{review.profilePic || '/uploads/default-profile.png'}}" alt="Profile Picture"
+                                class="rounded-circle mb-3" style="width: 90px; height: 90px; object-fit: cover" />
+                            <p><strong>{{review.userName}}</strong><br>
+                                <small>{{review.userEmail}}</small><br>
+                                Rated: <strong>{{review.rating}}/5</strong>
+                            </p>
                             <p class="review-text mb-2">"{{review.text}}"</p>
-                
+        
                             <!-- Bagian Created dan Updated dengan ukuran font kecil dan teks ke kiri -->
                             <p class="review-dates"><strong>Created:</strong> {{review.createdAt | date:'medium'}}</p>
                             <p class="review-dates"><strong>Last Updated:</strong> {{review.updatedAt | date:'medium'}}</p>
-                
+        
                             <!-- Show Edit and Delete buttons only if the user is the review owner -->
                             <div ng-if="isReviewOwner(review)" class="btn-group" role="group">
                                 <button class="btn btn-warning" ng-click="editReview($index)">Edit</button>
@@ -429,9 +439,10 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
+        
         
         
 

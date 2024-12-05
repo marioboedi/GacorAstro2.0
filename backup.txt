@@ -29,7 +29,7 @@ GACORASTRO/
 ├── uploads/
 │   └── (image files or other upload data)
 ├── views/
-│   ├── admin/                <-- Folder ini kosong
+│   ├── admin/                
 │   ├── account.html
 │   ├── index.html
 │   ├── login.html
