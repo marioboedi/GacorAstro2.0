@@ -1,5 +1,3 @@
-// server/routes/zodiacRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const Zodiac = require('../models/zodiac');

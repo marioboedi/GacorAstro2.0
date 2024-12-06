@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="authApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Admin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container" ng-controller="adminController">
+      <div class="row justify-content-center mt-5">
+        <div class="col-4">
+          <h2 class="text-center">Login Admin</h2>
+          <form ng-submit="login()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                ng-model="email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                ng-model="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+
+          <p class="mt-1 text-center">
+            User? <a href="/login">Login as User</a>
+        </p>
+          <div class="mt-3">
+            <!-- Pesan status login -->
+            <p ng-if="modalMessage" class="text-center text-success">{{modalMessage}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const app = angular.module("authApp", []);
+
+      app.controller("adminController", function ($scope) {
+        // Email dan password admin
+        const adminCredentials = {
+          email: "admin@gmail.com",
+          password: "admin123",
+        };
+
+        $scope.email = "";
+        $scope.password = "";
+        $scope.modalMessage = "";
+
+        // Fungsi untuk memperbarui pesan login
+        $scope.showModal = function (message) {
+          $scope.modalMessage = message;
+        };
+
+        // Fungsi login
+        $scope.login = function () {
+          if (!$scope.email || !$scope.password) {
+            $scope.showModal("Email dan password harus diisi!");
+            return;
+          }
+          if (
+            $scope.email === adminCredentials.email &&
+            $scope.password === adminCredentials.password
+          ) {
+            $scope.showModal("Login berhasil! Selamat datang Admin.");
+            setTimeout(() => {
+              window.location.href = "/admin/home"; // Setelah login sukses, arahkan ke halaman admin
+            }, 2000);
+          } else {
+            $scope.showModal("Email atau password salah");
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
