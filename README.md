@@ -40,6 +40,7 @@ Mario Samuel Budiono - 535230091 <br />
 -	Membuat fitur search di section zodiac
 -	Membuat fitur sort pada section review
 <br />
+
 Hernando Bun - 535230133 <br />
 -	Membuat tampilan UI halaman account
 -	Membuat fitur CRUD postingan untuk user yang terhubung ke database
